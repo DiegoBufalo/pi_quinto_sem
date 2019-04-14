@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.usjt.proj_int.model.UserFileUpload;
+import br.usjt.proj_int.repository.FileRepository;
+
 @Controller
 public class UploadController {
 	
@@ -12,9 +15,12 @@ public class UploadController {
 	private FileRepository fileService;
 	
 	@GetMapping(value="/upload")
-	public ModelAndView homeConfeccao() {
+	public ModelAndView homeConfeccao() {		
 		ModelAndView mv = new ModelAndView("upload");	
-		mv.addObject(new FileUpload());
+		mv.addObject(new UserFileUpload());
 		return mv;
 	}
+	
+	
+	
 }

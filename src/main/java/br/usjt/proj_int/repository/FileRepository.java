@@ -1,5 +1,9 @@
 package br.usjt.proj_int.repository;
 
-public class FileRepository {
+import br.usjt.proj_int.model.UserFileUpload;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FileRepository extends JpaRepository<UserFileUpload, Long>{
 
 }
