@@ -8,70 +8,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.usjt.proj_int.model.bean.Audio;
 import br.usjt.proj_int.model.bean.Categoria;
-import br.usjt.proj_int.model.bean.Figura;
-import br.usjt.proj_int.model.bean.Texto;
-import br.usjt.proj_int.service.AudioService;
 import br.usjt.proj_int.service.CategoriaService;
-import br.usjt.proj_int.service.FiguraService;
-import br.usjt.proj_int.service.MaterialService;
-import br.usjt.proj_int.service.TextoService;
-import br.usjt.proj_int.service.VideoService;
 
 @Controller
-@RequestMapping("upload")
-public class UploadController {
+@RequestMapping("/categorias")
+public class CategoriaController {
 
 	@Autowired
 	CategoriaService categoriaService;
 
-	@Autowired
-	TextoService textoService;
+	@GetMapping
+	public ModelAndView listar() {
 
-	@Autowired
-	MaterialService materialService;
-
-	@Autowired
-	FiguraService figuraService;
-
-	@Autowired
-	AudioService audioService;
-
-	@Autowired
-	VideoService videoService;
-
-	@GetMapping()
-	public ModelAndView homeUpload() {
-
-		ModelAndView mv = new ModelAndView("upload");
-
-		mv.addObject("figuras", this.figuraService.listar());
-
-		mv.addObject("textos", this.textoService.listar());
+		ModelAndView mv = new ModelAndView("categorias");
 
 		mv.addObject("categorias", this.categoriaService.listar());
-		
+
+		mv.addObject(new Categoria());
 
 		return mv;
 	}
 
-	// /categoria
-	@PostMapping("/categoria")
+	@PostMapping
 	public String adicionar(Categoria categoria) {
 
 		if (categoria.getNome() != null && !categoria.getNome().isEmpty()) {
 
 			this.categoriaService.salvar(categoria);
 		}
-
+		
 		return "redirect:/categorias";
 	}
 
-	// /categoria/atualizar
-	@PostMapping("/categoria/atualizar")
+	@PostMapping("/atualizar")
 	public String atualizar(@RequestParam("id") Long id, @RequestParam("nome") String nome) {
-
+		
 		if (nome != null && !nome.isEmpty()) {
 
 			Categoria categoria = this.categoriaService.get(id);
@@ -83,17 +55,18 @@ public class UploadController {
 
 		return "redirect:/categorias";
 	}
+	
+	
+	
+	
 
-	// /texto
-	@PostMapping("/texto")
-	public String adicionar(Texto texto) {
-
-		if (texto.getResumo() != null && !texto.getResumo().isEmpty()) {
-
-			this.materialService.salvar(texto);
-		}
-
-		return "redirect:/uploads";
-	}
+//	@GetMapping(path = "editar/{id}")
+//	public String atualizar(@PathVariable("id") int id) {
+//
+//		System.out.println("----->> " + id);
+//
+//		return "redirect:/categorias";
+//	}
+//
 
 }

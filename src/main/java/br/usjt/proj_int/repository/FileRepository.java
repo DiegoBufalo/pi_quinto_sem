@@ -3,7 +3,7 @@ package br.usjt.proj_int.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.usjt.proj_int.model.UserFileUpload;
+import br.usjt.proj_int.model.bean.UserFileUpload;
 
 public interface FileRepository extends JpaRepository<UserFileUpload, Long>{
 	

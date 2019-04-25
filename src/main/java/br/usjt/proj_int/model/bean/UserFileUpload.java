@@ -1,4 +1,4 @@
-package br.usjt.proj_int.model;
+package br.usjt.proj_int.model.bean;
 
 import java.util.List;
 

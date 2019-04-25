@@ -29,70 +29,204 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 		<div class="navbar-nav ">
-			<a class="nav-item nav-link active" href="/opcoes">Voltar</a> <a
-				class="nav-item nav-link active" href="/login">Sair</a>
+			<a class="nav-item nav-link active" href="Opcoes.jsp">Voltar</a> <a
+				class="nav-item nav-link active" href="Login.jsp">Sair</a>
+
+
+
 		</div>
 	</div>
 	</nav>
 
-	<form class="form-inline" method="post" th:object="${userFileUpload}"
-		th:action="@{/uploadConfec}" style="margin: 20px 0">
+
 	<div>
 		<h4>Imagens</h4>
+		<div class="col-md-2 text-center">
 
+			<form method="POST" action="/uploads/upload"
+				enctype="multipart/form-data">
+
+				<label class="btn btn-default" style="margin: 15px 0 15px 0">
+					Upload | Selecione arquivo<input type="file" hidden name="file"
+					multiple="">
+				</label> <br /> <input type="submit" value="Enviar"
+					class="btn btn-secondary" />
+
+			</form>
+
+		</div>
 		<div
 			style="border-style: solid; margin: 50px 80px 50px; padding: 5px;">
-
-			<img src="imagens/penguin.png" style="width: 200px;"
-				class="w-auto p-3 rounded float-left" alt="responsive image">
-			<img src="imagens/penguin.png" style="width: 200px;"
-				class="w-auto p-3 rounded float-center" alt="alternate text">
-			<img src="imagens/penguin.png" style="width: 200px;"
-				class="w-auto p-3 rounded float-right" alt="alternate text">
-				
+			<!-- 
+			<img src="imagens/penguin.png" style="width: 200px;" w-auto
+				p-3" class="rounded float-left" alt="responsive image"> <img
+				src="imagens/penguin.png" style="width: 200px;" w-auto
+				p-3" class="rounded float-center" alt="alternate text"> <img
+				src="imagens/penguin.png" style="width: 200px;" w-auto
+				p-3" class="rounded float-right" alt="alternate text"> -->
 		</div>
-		<input class="btn btn-primary btn-lg" type="file" name="file" th:value="*{imagem}" /> <br>
-		<br>
-		<br>
+		<table class="table">
 
-		<h4>Videos</h4>
-		<div
-			style="border-style: solid; margin: 50px 80px 50px; padding: 5px;">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">#</th>
+					<th scope="col">Nome</th>
+					<th scope="col">Autor</th>
+					<th scope="col">Data Registro</th>
+				</tr>
+			</thead>
 
-			<img src="imagens/penguin.gif" style="width: 200px;"
-				class="w-auto p-3 rounded float-left" alt="Responsive image">
-			<img src="imagens/penguin.gif" style="width: 200px;"
-				class="w-auto p-3 rounded float-right" alt="Responsive image">
-			<img src="imagens/penguin.gif" style="width: 200px;"
-				class="w-auto p-3 rounded float-center" alt="Responsive image">
+
+
+			<tbody>
+
+				<tr th:each="figura : ${figuras}">
+
+					<td class="align-middle">
+
+						<div class="card" style="width: 12rem; margin: 12px 0 20px 0">
+							<a th:href="@{${'http://localhost:3000/' + figura.url }}"
+								target="_blank" style=""><img class="card-img-top"
+								th:src="@{${'http://localhost:3000/' + figura.url }}"
+								alt="Card image cap"></a>
+
+						</div>
+
+
+					</td>
+
+					<td th:text="${figura.id}" class="align-middle"></td>
+
+					<td th:text="${figura.nome}" class="align-middle"></td>
+
+					<td th:text="${figura.autor}" class="align-middle"></td>
+
+
+					<td
+						th:text="${#temporals.format(figura.dataRegistro, 'dd/MM/yyyy HH:mm')}"
+						class="align-middle"></td>
+
+
+
+				</tr>
+			</tbody>
+
+		</table>
+
+		<div th:if="${#lists.isEmpty(figuras)}">
+			<p style="margin-top: 40px; text-align: center">Lista vazia</p>
 		</div>
-		<input class="btn btn-primary btn-lg" type="file" name="file" th:value="*{video}" /> <br>
-		<br>
-		<br>
 
-		<h4>Textos</h4>
-		<div
-			style="border-style: solid; margin: 50px 80px 50px; padding: 5px;">
-			<img src="imagens/txt.png" style="width: 150px;"
-				class="w-auto p-3 rounded float-left" alt="Responsive image">
-			<img src="imagens/txt.png" style="width: 150px;"
-				class="w-auto p-3 rounded float-right" alt="Responsive image">
-			<img src="imagens/txt.png" style="width: 150px;"
-				class="w-auto p-3 rounded float-center" alt="Responsive image">
-		</div>
-		<input class="btn btn-primary btn-lg" type="file" name="file" th:value="*{arquivoTexto}" /> <br>
 	</div>
+	<br>
+	<br>
 
-	<br>
-	<br>
-	<br>
-	<div>
-		<button class="btn btn-primary btn-lg" type="submit" value="acessar">Enviar</button>
-	</div>
+	<h4>Videos</h4>
+	<form method="POST" action="/uploads/upload"
+		enctype="multipart/form-data">
+
+		<label class="btn btn-default" style="margin: 15px 0 15px 0">
+			Upload | Selecione arquivo<input type="file" hidden name="file"
+			multiple="">
+		</label> <br /> <input type="submit" value="Enviar" class="btn btn-secondary" />
+
 	</form>
+	<div style="border-style: solid; margin: 50px 80px 50px; padding: 5px;">
+
+	<!-- 	<img src="imagens/penguin.gif" style="width: 200px;" w-auto
+			p-3" class="rounded float-left" alt="Responsive image"> <img
+			src="imagens/penguin.gif" style="width: 200px;" w-auto
+			p-3" class="rounded float-right" alt="Responsive image"> <img
+			src="imagens/penguin.gif" style="width: 200px;" w-auto
+			p-3" class="rounded float-center" alt="Responsive image">
+	</div> -->
+
 	<br>
 	<br>
-	<br>
+	<tbody>
+
+		<tr th:each="video : ${videos}">
+
+			<td class="align-middle"><video width="100%" controls> <source
+					th:src="@{${'http://localhost:3000/' + video.url }}"
+					type="video/mp4"> Your browser does not support HTML5
+				video. </video></td>
+
+			<td th:text="${video.id}" class="align-middle"></td>
+
+			<td th:text="${video.nome}" class="align-middle"></td>
+
+			<td th:text="${video.producao}" class="align-middle"></td>
+
+
+			<td
+				th:text="${#temporals.format(video.dataRegistro, 'dd/MM/yyyy HH:mm')}"
+				class="align-middle"></td>
+
+
+
+		</tr>
+	</tbody>
+	<h4>Textos</h4>
+	
+	<table class="table">
+
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col"></th>
+				<th scope="col">#</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Autor</th>
+				<th scope="col">Data Registro</th>
+				<th scope="col">Direito de uso</th>
+				<th scope="col">Resumo</th>
+
+			</tr>
+		</thead>
+
+
+
+		<tbody>
+
+			<tr th:each="texto : ${textos}">
+
+				<td><a th:href="@{${'http://localhost:3000/' + texto.url }}"
+					target="_blank"><img th:src="@{/pdf.png}" style="width: 60px" /></a>
+
+
+
+
+				</td>
+
+				<td th:text="${texto.id}" class="align-middle"></td>
+
+				<td th:text="${texto.nome}" class="align-middle"></td>
+
+				<td th:text="${texto.autor}" class="align-middle"></td>
+
+
+				<td
+					th:text="${#temporals.format(texto.dataRegistro, 'dd/MM/yyyy HH:mm')}"
+					class="align-middle"></td>
+
+				<td th:text="${texto.direitoDeUso}" class="align-middle"></td>
+
+				<td th:text="${texto.resumo}" class="align-middle"></td>
+
+			</tr>
+		</tbody>
+
+	</table>
+
+	<div th:if="${#lists.isEmpty(textos)}">
+		<p style="margin-top: 40px; text-align: center">Lista vazia</p>
+	</div>
+
+
+	</div>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>
