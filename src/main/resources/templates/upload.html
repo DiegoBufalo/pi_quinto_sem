@@ -32,7 +32,7 @@
 			<div class="navbar-nav ">
 
 				<a class="nav-item nav-link active" href="/opcoes">Voltar</a> <a
-					class="nav-item nav-link active" href="/login">Sair</a>
+					class="nav-item nav-link active" href="/logout">Sair</a>
 
 			</div>
 		</div>
@@ -41,143 +41,157 @@
 	<br>
 	<br>
 	<div class="container-fluid">
+		<div
+			style="border-style: solid; margin: 50px 80px 50px; padding: 5px;">
+			<div class="row">
 
-		<div class="row">
-
-			<div class="col-md-2 text-center">
-
-				<form method="POST" action="/uploads/upload"
-					enctype="multipart/form-data">
-
-					<label class="btn btn-default" style="margin: 15px 0 15px 0">
-						Upload | Selecione arquivo<input type="file" hidden name="file"
-						multiple="">
-					</label> <br /> <input type="submit" value="Enviar"
-						class="btn btn-secondary" />
-
-				</form>
-
-			</div>
-
-			<div class="col-md-10">
+				<div class="col-md-10">
 
 
-				<h2 style="margin: 20px 0 30px 0">Lista de Textos</h2>
+					<h2 style="margin: 20px 0 30px 0">Lista de Textos</h2>
 
-				<!-- <img th:src="@{${'http://localhost:3000/' + material.url }}" class="img-fluid" alt="Imagem"> -->
+					<!-- <img th:src="@{${'http://localhost:3000/' + material.url }}" class="img-fluid" alt="Imagem"> -->
 
 
-				<table class="table">
+					<table class="table">
 
-					<thead class="thead-dark">
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">#</th>
-							<th scope="col">Nome</th>
-							<th scope="col">Autor</th>
-							<th scope="col">Data Registro</th>
-							<th scope="col">Direito de uso</th>
-							<th scope="col">Resumo</th>
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">#</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Autor</th>
+								<th scope="col">Data Registro</th>
+								<th scope="col">Direito de uso</th>
+								<th scope="col">Resumo</th>
 
-						</tr>
-					</thead>
+							</tr>
+						</thead>
 
 
 
-					<tbody>
+						<tbody>
 
-						<tr th:each="texto : ${textos}">
+							<tr th:each="texto : ${textos}">
 
-							<td><a th:href="@{${'http://localhost:3000/' + texto.url }}"
-								target="_blank"><img th:src="@{/pdf.png}"
-									style="width: 60px" /></a></td>
+								<td><a
+									th:href="@{${'http://localhost:3000/' + texto.url }}"
+									target="_blank"><img th:src="@{/pdf.png}"
+										style="width: 60px" /></a></td>
 
-							<td th:text="${texto.id}" class="align-middle"></td>
+								<td th:text="${texto.id}" class="align-middle"></td>
 
-							<td th:text="${texto.nome}" class="align-middle"></td>
+								<td th:text="${texto.nome}" class="align-middle"></td>
 
-							<td th:text="${texto.autor}" class="align-middle"></td>
+								<td th:text="${texto.autor}" class="align-middle"></td>
 
 
-							<td
-								th:text="${#temporals.format(texto.dataRegistro, 'dd/MM/yyyy HH:mm')}"
-								class="align-middle"></td>
+								<td
+									th:text="${#temporals.format(texto.dataRegistro, 'dd/MM/yyyy HH:mm')}"
+									class="align-middle"></td>
 
-							<td th:text="${texto.direitoDeUso}" class="align-middle"></td>
+								<td th:text="${texto.direitoDeUso}" class="align-middle"></td>
 
-							<td th:text="${texto.resumo}" class="align-middle"></td>
+								<td th:text="${texto.resumo}" class="align-middle"></td>
 
-						</tr>
-					</tbody>
+							</tr>
+						</tbody>
 
-				</table>
+					</table>
 
-				<div th:if="${#lists.isEmpty(textos)}">
-					<p style="margin-top: 40px; text-align: center">Lista vazia</p>
+					<div th:if="${#lists.isEmpty(textos)}">
+						<p style="margin-top: 40px; text-align: center">Lista vazia</p>
+					</div>
+
+					<div class="col-md-2 text-center">
+
+						<form method="POST" action="upload/texto"
+							enctype="multipart/form-data">
+
+							<label class="btn btn-default" style="margin: 15px 0 15px 0">
+								Upload | Selecione arquivo<input type="file" hidden name="file"
+								multiple="">
+							</label> <br /> <input type="submit" value="Enviar"
+								class="btn btn-secondary" />
+
+						</form>
+
+					</div>
 				</div>
 
+			</div>
+
+		</div>
+	</div>
+	<br>
+
+	<br>
+	<br>
+	<br>
+
+	<div style="border-style: solid; margin: 50px 80px 50px; padding: 5px;">
+
+		<div class="container-fluid">
+
+			<div class="row">
+
+				<div class="col-md-8">
+
+					<table class="table">
+
+						<h4>Tags</h4>
+
+						<tbody>
+							<tr th:each="tag : ${tags}">
+								<td th:text="${tag.id}"></td>
+								<td th:text="${tag.tagNome}"></td>
+
+								<td
+									th:text="${#temporals.format(tag.dataRegistro, 'dd/MM/yyyy HH:mm')}"></td>
+								<td>
+
+									<form class="form-inline" method="post"
+										th:action="@{/tag/atualizar}">
+
+										<div class="form-group">
+
+											<input type="text" id="id" name="id" th:value="${tag.id}" />
+											<input type="text" id="nome" name="nome" class="form-control"
+												placeholder="Nome" th:value="${tag.tagNome}" />
+
+											<button type="submit" class="btn btn-primary">Salvar</button>
+										</div>
+
+									</form>
+
+								</td>
+
+							</tr>
+						</tbody>
+
+					</table>
+					<div class="col-md-4">
+
+						<form class="form-inline" method="post" style="margin: 20px 0"
+							th:object="${tag}" th:action="@{upload/tag}">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Nome" 
+								th:field="*{TagNome}"/>
+
+								<button type="submit" class="btn btn-primary">Adicionar</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
 
 			</div>
 
 		</div>
-
 	</div>
-	<br>
-	<div style="border-style: solid; margin: 50px 80px 50px; padding: 5px;">
 
-		<h4>Selecione as Tags</h4>
 
-		<table class="table table-dark">
 
-			<thead>
-				<tr>
-					<th scope="col">Software</th>
-					<th scope="col">Statistics</th>
-					<th scope="col">Teaching</th>
-					<th scope="col">Technology</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">Tips</th>
-					<th scope="col">Tools
-					</td>
-					<th scope="col">Travel
-					</td>
-					<th scope="col">Tutorial
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">TV</th>
-					<th scope="col">Typography
-					</td>
-					<th scope="col">Ubuntu
-					</td>
-					<th scope="col">Video
-					</td>
-				</tr>
-				<tr>
-					<th scope="row">Imagens</th>
-					<th scope="col">Web
-					</td>
-					<th scope="col">Web 2.0
-					</td>
-					<th scope="col">tutorials
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<div class="d-flex justify-content-start">
-			<nav class="navbar navbar-light bg-light">
-				<a class="navbar-brand">Escolha suas Tags</a>
-				<form class="form-inline">
-					<!--<input type="text" class="form-control" placeholder="Nome"
-							th:field="*{tag}" />-->
-			</nav>
-		</div>
-
-	</div>
 
 	<br>
 	<br>
@@ -187,20 +201,6 @@
 		<div class="container-fluid">
 
 			<div class="row">
-
-				<div class="col-md-4">
-
-					<form class="form-inline" method="post" style="margin: 20px 0"
-						th:object="${categoria}" th:action="@{/categorias}">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Nome" />
-
-
-							<button type="submit" class="btn btn-primary">Adicionar</button>
-						</div>
-					</form>
-
-				</div>
 
 				<div class="col-md-8">
 
@@ -219,7 +219,7 @@
 								<td>
 
 									<form class="form-inline" method="post"
-										th:action="@{/categorias/atualizar}">
+										th:action="@{upload/categoria/atualizar}">
 
 										<div class="form-group">
 
@@ -229,31 +229,44 @@
 												th:value="${categoria.nome}" />
 
 											<button type="submit" class="btn btn-primary">Salvar</button>
+
 										</div>
-
 									</form>
-
 								</td>
-
 							</tr>
 						</tbody>
 
 					</table>
+					<div class="col-md-4">
 
+						<form class="form-inline" method="post" style="margin: 20px 0"
+							th:object="${categoria}" th:action="@{upload/categoria}">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Nome"
+									th:field="*{nome}" />
+
+								<button type="submit" class="btn btn-primary">Adicionar</button>
+							</div>
+						</form>
+
+
+						<!-- <form class="form-inline" method="post" style="margin: 20px 0"
+							th:object="${categoria}" th:action="@{/upload/categoria}">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Nome"
+									th:field="*{nome}" />
+
+								<button type="submit" class="btn btn-primary">Adicionar</button>
+							</div>
+						</form>
+						 -->
+					</div>
 				</div>
 
 			</div>
 
 		</div>
 	</div>
-
-	<br>
-	<br>
-	<br>
-	<div>
-		<button class="btn btn-primary btn-lg" type="submit" value="acessar">Enviar</button>
-	</div>
-	
 
 	<br>
 	<br>
@@ -275,7 +288,12 @@
 		</div>
 
 	</div>
-	</form>
+	<br>
+	<br>
+	<br>
+	<div>
+		<button class="btn btn-primary btn-lg" type="submit" value="acessar">Enviar</button>
+	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 		crossorigin="anonymous"></script>

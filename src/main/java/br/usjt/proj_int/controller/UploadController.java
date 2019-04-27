@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.usjt.proj_int.model.bean.Audio;
 import br.usjt.proj_int.model.bean.Categoria;
-import br.usjt.proj_int.model.bean.Figura;
+import br.usjt.proj_int.model.bean.Tag;
 import br.usjt.proj_int.model.bean.Texto;
 import br.usjt.proj_int.service.AudioService;
 import br.usjt.proj_int.service.CategoriaService;
-import br.usjt.proj_int.service.FiguraService;
 import br.usjt.proj_int.service.MaterialService;
+import br.usjt.proj_int.service.TagService;
 import br.usjt.proj_int.service.TextoService;
 import br.usjt.proj_int.service.VideoService;
 
@@ -33,25 +32,28 @@ public class UploadController {
 	MaterialService materialService;
 
 	@Autowired
-	FiguraService figuraService;
-
-	@Autowired
 	AudioService audioService;
 
 	@Autowired
 	VideoService videoService;
+
+	@Autowired
+	TagService tagService;
 
 	@GetMapping()
 	public ModelAndView homeUpload() {
 
 		ModelAndView mv = new ModelAndView("upload");
 
-		mv.addObject("figuras", this.figuraService.listar());
-
 		mv.addObject("textos", this.textoService.listar());
 
 		mv.addObject("categorias", this.categoriaService.listar());
-		
+
+		mv.addObject("tags", this.tagService.listar());
+
+		mv.addObject(new Categoria());
+
+		mv.addObject(new Tag());
 
 		return mv;
 	}
@@ -59,13 +61,13 @@ public class UploadController {
 	// /categoria
 	@PostMapping("/categoria")
 	public String adicionar(Categoria categoria) {
-
+		System.out.println(categoria.toString());
 		if (categoria.getNome() != null && !categoria.getNome().isEmpty()) {
 
 			this.categoriaService.salvar(categoria);
 		}
 
-		return "redirect:/categorias";
+		return "redirect:/upload";
 	}
 
 	// /categoria/atualizar
@@ -81,7 +83,7 @@ public class UploadController {
 			this.categoriaService.salvar(categoria);
 		}
 
-		return "redirect:/categorias";
+		return "redirect:/upload";
 	}
 
 	// /texto
@@ -93,7 +95,18 @@ public class UploadController {
 			this.materialService.salvar(texto);
 		}
 
-		return "redirect:/uploads";
+		return "redirect:/upload";
+	}
+
+	// /texto
+	@PostMapping("/tag")
+	public String adicionar(Tag tag) {
+		
+		if (tag.getTagNome() != null) {
+			this.tagService.salvar(tag);
+		}
+		
+		return "redirect:/upload";
 	}
 
 }

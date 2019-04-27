@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.usjt.proj_int.model.bean.Categoria;
 import br.usjt.proj_int.model.bean.Figura;
+import br.usjt.proj_int.model.bean.Tag;
 import br.usjt.proj_int.model.bean.Texto;
 import br.usjt.proj_int.model.bean.Video;
 import br.usjt.proj_int.service.AudioService;
@@ -17,6 +20,7 @@ import br.usjt.proj_int.service.TextoService;
 import br.usjt.proj_int.service.VideoService;
 
 @Controller
+@RequestMapping("confeccao")
 public class ConfeccaoController {
 
 	@Autowired
@@ -40,16 +44,20 @@ public class ConfeccaoController {
 	@GetMapping()
 	public ModelAndView homeUpload() {
 
-		ModelAndView mv = new ModelAndView("upload");
+		ModelAndView mv = new ModelAndView("confeccao");
 
 		mv.addObject("figuras", this.figuraService.listar());
 
 		mv.addObject("textos", this.textoService.listar());
 
-		mv.addObject("viddeos", this.videoService.listar());
+		mv.addObject("videos", this.videoService.listar());
 
 		mv.addObject("categorias", this.audioService.listar());
-
+		
+		mv.addObject(new Categoria());
+		
+		mv.addObject(new Tag());			
+		
 		return mv;
 	}
 
@@ -73,7 +81,7 @@ public class ConfeccaoController {
 
 			this.materialService.salvar(figura);
 		}
-
+		
 		return "redirect:/upload";
 	}
 	
@@ -86,8 +94,6 @@ public class ConfeccaoController {
 			this.materialService.salvar(video);
 		}
 		
-		return "redirect:/videos";
+		return "redirect:/confeccao";
 	}
-
-
 }

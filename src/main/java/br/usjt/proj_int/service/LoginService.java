@@ -8,9 +8,7 @@ import br.usjt.proj_int.repository.UsuarioRepository;
 
 @Service
 public class LoginService {
-	
-	
-	
+		
 	@Autowired
 	UsuarioRepository usuarioRepo;
 	

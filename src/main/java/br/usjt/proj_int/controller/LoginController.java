@@ -13,13 +13,13 @@ import br.usjt.proj_int.model.bean.Usuario;
 import br.usjt.proj_int.service.LoginService;
 
 @Controller
-@RequestMapping("")
+@RequestMapping()
 public class LoginController {
-	
+
 	@Autowired
 	private LoginService loginService;
 
-	@GetMapping(value = { "/login", "/", "/upload/login" })
+	@GetMapping(value = { "/login", "/" })
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView("login");
 		mv.addObject(new Usuario());
@@ -34,5 +34,22 @@ public class LoginController {
 		} else {
 			return "login";
 		}
+	}
+
+	@GetMapping(value = { "/logout" })
+	public String logout(HttpServletRequest request, Usuario usuario) {
+		if (request.getAttribute("usuarioLogado") != null) {
+			request.getSession().removeAttribute("usuarioLogado");
+			return "login";
+		} else {
+			return "login";
+		}
+	}
+	
+	@GetMapping(value = { "/opcoes" })
+	public ModelAndView opcoes() {
+		ModelAndView mv = new ModelAndView("opcoes");
+		mv.addObject(new Usuario());
+		return mv;
 	}
 }
