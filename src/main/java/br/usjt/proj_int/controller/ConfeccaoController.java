@@ -37,7 +37,7 @@ public class ConfeccaoController {
 
 	@Autowired
 	VideoService videoService;
-	
+
 	@Autowired
 	MaterialService materialService;
 
@@ -53,11 +53,11 @@ public class ConfeccaoController {
 		mv.addObject("videos", this.videoService.listar());
 
 		mv.addObject("categorias", this.audioService.listar());
-		
+
 		mv.addObject(new Categoria());
-		
-		mv.addObject(new Tag());			
-		
+
+		mv.addObject(new Tag());
+
 		return mv;
 	}
 
@@ -72,7 +72,7 @@ public class ConfeccaoController {
 
 		return "redirect:/uploads";
 	}
-	
+
 	// /Figura
 	@PostMapping("/figura")
 	public String adicionar(Figura figura) {
@@ -81,10 +81,10 @@ public class ConfeccaoController {
 
 			this.materialService.salvar(figura);
 		}
-		
+
 		return "redirect:/upload";
 	}
-	
+
 	// /video
 	@PostMapping("/video")
 	public String adicionar(Video video) {
@@ -93,7 +93,7 @@ public class ConfeccaoController {
 
 			this.materialService.salvar(video);
 		}
-		
+
 		return "redirect:/confeccao";
 	}
 }

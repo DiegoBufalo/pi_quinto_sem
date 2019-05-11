@@ -24,7 +24,7 @@ public class VideoController {
 	@GetMapping
 	public ModelAndView listar() {
 
-		ModelAndView mv = new ModelAndView("videos");
+		ModelAndView mv = new ModelAndView("upload_video");
 
 		mv.addObject("videos", this.videoService.listar());
 
@@ -39,7 +39,7 @@ public class VideoController {
 			this.materialService.salvar(video);
 		}
 		
-		return "redirect:/videos";
+		return "redirect:/upload_video";
 	}
 
 }

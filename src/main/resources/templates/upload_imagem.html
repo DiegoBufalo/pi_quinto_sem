@@ -20,13 +20,8 @@
 <!-- Custom styles for this template -->
 <link href="floating-labels.css" rel="stylesheet">
 </head>
-<body class="text-center"  style="background: #76b852; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #5258b8, #bfb3f9);
-  background: -moz-linear-gradient(right, #5258b8, #bfb3f9);
-  background: -o-linear-gradient(right, #5258b8, #bfb3f9);
-  background: linear-gradient(to left, #5258b8, #bfb3f9);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;    ">
+<body class="text-center"
+	style="background: #76b852; /* fallback for old browsers */ background: -webkit-linear-gradient(right, #5258b8, #bfb3f9); background: -moz-linear-gradient(right, #5258b8, #bfb3f9); background: -o-linear-gradient(right, #5258b8, #bfb3f9); background: linear-gradient(to left, #5258b8, #bfb3f9); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
 	<nav class="navbar navbar-expand-lg  navbar navbar-dark bg-dark">
 		<a class="navbar-brand" href="#">USJT | Files Upload</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -48,26 +43,14 @@
 	<br>
 	<div class="container-fluid">
 		<div
-			
-			style="outline: 0;
-                      background: #f2f2f2;
-                      width: 100%;
-                      border: 0;
-                      margin: 0 0 15px;
-                      padding: 15px;
-                      box-sizing: border-box;
-                      font-size: 14px;box-shadow: inset 0 0 , 0 0 1em black;border-radius:5px">
+			style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
 			<div class="row">
 
 				<div class="col-md-10">
 
-	<form></form> 
-					<h2 style="margin: 20px 0 30px 0">Lista de Textos</h2>
-
-					<!-- <img th:src="@{${'http://localhost:3000/' + material.url }}" class="img-fluid" alt="Imagem"> -->
-
-
-					<table class="table">
+					<form></form>
+					<h2 style="margin: 20px 0 30px 0">
+						Lista de Imagens
 
 						<thead class="thead-dark">
 							<tr>
@@ -111,15 +94,15 @@
 							</tr>
 						</tbody>
 
-					</table>
+						</table>
 
-					<div th:if="${#lists.isEmpty(textos)}">
-						<p style="margin-top: 40px; text-align: center">Lista vazia</p>
-					</div>
+						<div th:if="${#lists.isEmpty(textos)}">
+							<p style="margin-top: 40px; text-align: center">Lista vazia</p>
+						</div>
 
-					<div class="col-md-2 text-center">
+						<div class="col-md-2 text-center">
 
-						<form method="POST" action="upload/texto"
+							<!--  	<form method="POST" action="upload/texto"
 							enctype="multipart/form-data">
 
 							<label class="btn btn-default" style="margin: 15px 0 15px 0">
@@ -129,8 +112,19 @@
 								class="btn btn-secondary" />
 
 						</form>
+					-->
+							<form method="POST" action="/uploads/upload"
+								enctype="multipart/form-data">
 
-					</div>
+								<label class="btn btn-success" style="margin: 15px 0 15px 0">
+									Upload | Selecione arquivo<input type="file" hidden name="file"
+									multiple="">
+								</label> <br /> <input type="submit" value="Enviar"
+									class="btn btn-secondary" />
+
+							</form>
+
+						</div>
 				</div>
 
 			</div>
@@ -143,15 +137,8 @@
 	<br>
 	<br>
 
-	<div 
-			style="outline: 0;
-                      background: #f2f2f2;
-                      width: 100%;
-                      border: 0;
-                      margin: 0 0 15px;
-                      padding: 15px;
-                      box-sizing: border-box;
-                      font-size: 14px;box-shadow: inset 0 0 , 0 0 1em black;border-radius:5px">
+	<div
+		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
 
 		<div class="container-fluid">
 
@@ -197,8 +184,8 @@
 						<form class="form-inline" method="post" style="margin: 20px 0"
 							th:object="${tag}" th:action="@{upload/tag}">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nome" 
-								th:field="*{TagNome}"/>
+								<input type="text" class="form-control" placeholder="Nome"
+									th:field="*{TagNome}" />
 
 								<button type="submit" class="btn btn-primary">Adicionar</button>
 							</div>
@@ -218,15 +205,8 @@
 	<br>
 	<br>
 	<br>
-	<div 
-			style="outline: 0;
-                      background: #f2f2f2;
-                      width: 100%;
-                      border: 0;
-                      margin: 0 0 15px;
-                      padding: 15px;
-                      box-sizing: border-box;
-                      font-size: 14px;box-shadow: inset 0 0 , 0 0 1em black;border-radius:5px">
+	<div
+		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
 
 		<div class="container-fluid">
 
@@ -301,15 +281,8 @@
 	<br>
 	<br>
 	<br>
-	<div 
-			style="outline: 0;
-                      background: #f2f2f2;
-                      width: 100%;
-                      border: 0;
-                      margin: 0 0 15px;
-                      padding: 15px;
-                      box-sizing: border-box;
-                      font-size: 14px;box-shadow: inset 0 0 , 0 0 1em black;border-radius:5px">
+	<div
+		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
 		<h4>Tipo de Acesso</h4>
 
 		<div class="form-check form-check-inline">

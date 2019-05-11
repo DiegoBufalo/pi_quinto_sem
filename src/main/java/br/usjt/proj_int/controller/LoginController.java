@@ -19,7 +19,7 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 
-	@GetMapping(value = { "/login", "/" })
+	@GetMapping(value = { "/login", "/","/upload/login " })
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView("login");
 		mv.addObject(new Usuario());

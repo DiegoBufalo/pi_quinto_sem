@@ -67,8 +67,8 @@ public class Material implements Serializable {
 		return dataRegistro;
 	}
 
-	public void setDataRegistro(LocalDateTime dataRegistro) {
-		this.dataRegistro = dataRegistro;
+	public void setDataRegistro(LocalDateTime localDateTime) {
+		this.dataRegistro = localDateTime;
 	}
 
 }

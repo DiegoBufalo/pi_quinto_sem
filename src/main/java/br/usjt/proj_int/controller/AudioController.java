@@ -24,7 +24,7 @@ public class AudioController {
 	@GetMapping
 	public ModelAndView listar() {
 
-		ModelAndView mv = new ModelAndView("audios");
+		ModelAndView mv = new ModelAndView("upload_audio");
 
 		mv.addObject("audios", this.audioService.listar());
 

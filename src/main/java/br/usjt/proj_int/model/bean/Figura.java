@@ -1,6 +1,8 @@
 package br.usjt.proj_int.model.bean;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -11,6 +13,20 @@ public class Figura extends Material{
 	
 	private String autor;
 	
+	private long id;
+	
+	@Lob
+	@Column(name = "imagem")
+	private byte[] imagem;
+	
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+
 	public Figura() {
 		
 		super();

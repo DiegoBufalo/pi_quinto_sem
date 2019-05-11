@@ -24,9 +24,11 @@ public class FiguraController {
 	@GetMapping
 	public ModelAndView listar() {
 
-		ModelAndView mv = new ModelAndView("figuras");
+		ModelAndView mv = new ModelAndView("upload_imagem");
 
 		mv.addObject("figuras", this.figuraService.listar());
+		
+		mv.addObject("figura", new Figura());
 
 		return mv;
 	}
@@ -39,7 +41,7 @@ public class FiguraController {
 			this.materialService.salvar(figura);
 		}
 		
-		return "redirect:/figuras";
+		return "redirect:/upload_imagens";
 	}
 
 }

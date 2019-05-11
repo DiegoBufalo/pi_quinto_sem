@@ -1,4 +1,4 @@
-package br.usjt.proj_int.controller;
+package br.usjt.proj_int.controller.upload;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +19,8 @@ import br.usjt.proj_int.service.TextoService;
 import br.usjt.proj_int.service.VideoService;
 
 @Controller
-@RequestMapping("upload")
-public class UploadController {
+@RequestMapping("texto")
+public class UploadTextoController {
 
 	@Autowired
 	CategoriaService categoriaService;
@@ -43,7 +43,7 @@ public class UploadController {
 	@GetMapping()
 	public ModelAndView homeUpload() {
 
-		ModelAndView mv = new ModelAndView("upload");
+		ModelAndView mv = new ModelAndView("upload_texto");
 
 		mv.addObject("textos", this.textoService.listar());
 
@@ -108,5 +108,15 @@ public class UploadController {
 		
 		return "redirect:/upload";
 	}
-
-}
+	
+	
+	
+	// /opcoes
+		@GetMapping("/opcoes_upload")
+		public ModelAndView homeOpcoes() {
+			ModelAndView mv = new ModelAndView("opcoes_upload");					
+			return mv;
+		}
+		
+	
+}	

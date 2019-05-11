@@ -24,7 +24,7 @@ public class TextoController {
 	@GetMapping
 	public ModelAndView listar() {
 
-		ModelAndView mv = new ModelAndView("textos");
+		ModelAndView mv = new ModelAndView("upload_texto");
 
 		mv.addObject("textos", this.textoService.listar());
 
