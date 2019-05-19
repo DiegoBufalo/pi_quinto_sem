@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="/img/cropped-favicon-1-32x32.png">
+    <link rel="stylesheet" href="/css/home.css">
+    <title th:text="#{sugestoes}"></title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <a href="home.html" class="navbar-brand mx-auto"><img src="/img/logo-mediacenter.png" alt="Logo Media Center"
+                style="width: 210px"></a>
+    </nav>
+
+    <div class="bg-light">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="nav-link active" href="/sugestoes/dashboard" th:text="#{sugestoes}"></a>
+                <a class="nav-link" href="/materiais/upload" th:text="#{enviar}"></a>
+                <a class="nav-link" href="/conteudos/confeccao" th:text="#{confeccao}"></a>                
+                <a class="nav-link" href="/conteudos/timeline" th:text="timeline"></a>
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons" style="vertical-align: middle;">language</i>
+                    </button>
+                    <div class="dropdown-menu text-uppercase" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:text="#{lang.eng}" href="?lang=en"></a>
+                        <a class="dropdown-item" th:text="#{lang.es}" href="?lang=es"></a>
+                        <a class="dropdown-item" th:text="#{lang.pt}" href="?lang=pt"></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 mt-4 mb-4">
+                <h2 class="text-center title" th:text="#{sugestoes}"></h2>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <table class="table table-bordered table-light table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col" th:text="#{usuario}"></th>
+                    <th scope="col" th:text="#{titulo-publicacao}"></th>
+                    <th scope="col" th:text="#{sugestao-tags}"></th>
+                    <th scope="col" th:text="#{aprovacao}"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="sugestao : ${sugestoes}" th:id="${sugestao.id}">
+                    <td><strong class="text-gray-dark" th:text="${sugestao.usuario.usuario}"></strong></td>
+                    <td th:text="${sugestao.conteudo.titulo}"></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" th:text="${sugestao.sugestao}"></button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn enviar-feedback-positivo btn-primary bmd-btn-fab bmd-btn-fab-sm">
+                            <i class="material-icons">check</i>
+                        </button>
+                        <button type="button" class="btn enviar-feedback-negativo btn-primary bmd-btn-fab bmd-btn-fab-sm">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+    <script>$(document).ready(function () { $('body').bootstrapMaterialDesign(); });</script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+	    $('.enviar-feedback-positivo').click(function() {
+			var sugestao = this.parentNode.parentNode;
+			console.log(sugestao.id)
+			$.post(`/sugestoes/positivo/${sugestao.id}`,function(data, status) {
+				sugestao.remove();
+			});
+		});
+		
+		$('.enviar-feedback-negativo').click(function() {
+			var sugestao = this.parentNode.parentNode;
+			$.post(`/sugestoes/negativo/${sugestao.id}`,function(data, status) {
+				sugestao.remove();
+			});
+		});
+	});
+    </script>
+</body>
+
+</html>

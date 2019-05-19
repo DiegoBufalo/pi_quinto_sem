@@ -1,44 +1,33 @@
 package br.usjt.proj_int.service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import br.usjt.proj_int.model.bean.Categoria;
+import br.usjt.proj_int.model.beans.Categoria;
 import br.usjt.proj_int.repository.CategoriaRepository;
 
 @Service
 public class CategoriaService {
-	
-	private final CategoriaRepository repository;
-	
-	@Autowired
-	public CategoriaService(CategoriaRepository categoriaRepository) {
-		
-		this.repository = categoriaRepository;
-	}
-	
-	public List<Categoria> listar(){
-		
-		return (ArrayList<Categoria>) repository.findAll();
-				
-	}
-	
-	public void salvar(Categoria categoria) {
-						
-		categoria.setDataRegistro(LocalDateTime.now());
-		
-		repository.save(categoria);
-	}
-	
-	public Categoria get(Long id) {
-		
-		return repository.findById(id).get();
-	}
-	
 
+	@Autowired private CategoriaRepository categoriaRepository;
+	
+	public List<Categoria> findAll(){
+		return categoriaRepository.findAll();
+	}
 
+	public Categoria cadastrar(String nome) {
+		String nomeLimpo = StringUtils.capitalize(nome.trim().toLowerCase());
+		Categoria categoria = Optional.ofNullable(categoriaRepository.findByNome(nomeLimpo)).orElse(null);
+		if(categoria == null) {
+			categoria = new Categoria();
+			categoria.setNome(nomeLimpo);
+			categoriaRepository.save(categoria);
+		}
+		return categoria;
+	}
+	
 }

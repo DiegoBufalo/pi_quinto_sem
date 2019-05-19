@@ -1,9 +1,15 @@
 package br.usjt.proj_int.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
-import br.usjt.proj_int.model.bean.Material;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface MaterialRepository extends CrudRepository<Material, Long>{
+import br.usjt.proj_int.model.beans.Material;
+
+@Repository
+public interface MaterialRepository extends JpaRepository<Material, String> {
+
+	List<Material> findByTipo(String tipo);
 
 }

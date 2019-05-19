@@ -1,277 +1,541 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!--<link rel="icon" href="../../../../favicon.ico">-->
-
-<title>USJT | Files Upload</title>
-
-<!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/css?family=Lato"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<!-- Custom styles for this template -->
-<link href="floating-labels.css" rel="stylesheet">
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../css/froala_editor.css">
+<link rel="stylesheet" href="../../css/froala_style.css">
+<link rel="stylesheet" href="../../css/plugins/code_view.css">
+<link rel="stylesheet" href="../../css/plugins/draggable.css">
+<link rel="stylesheet" href="../../css/plugins/colors.css">
+<link rel="stylesheet" href="../../css/plugins/emoticons.css">
+<link rel="stylesheet" href="../../css/plugins/image_manager.css">
+<link rel="stylesheet" href="../../css/plugins/image.css">
+<link rel="stylesheet" href="../../css/plugins/line_breaker.css">
+<link rel="stylesheet" href="../../css/plugins/table.css">
+<link rel="stylesheet" href="../../css/plugins/char_counter.css">
+<link rel="stylesheet" href="../../css/plugins/video.css">
+<link rel="stylesheet" href="../../css/plugins/fullscreen.css">
+<link rel="stylesheet" href="../../css/plugins/file.css">
+<link rel="stylesheet" href="../../css/plugins/quick_insert.css">
+<link rel="stylesheet" href="../../css/plugins/help.css">
+<link rel="stylesheet" href="../../css/third_party/spell_checker.css">
+<link rel="stylesheet" href="../../css/plugins/special_characters.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+
+<link rel="stylesheet"
+	href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
+
+<link rel="icon" href="/img/cropped-favicon-1-32x32.png">
+<link rel="stylesheet" href="/css/confeccao.css">
+<title>Confecção</title>
 </head>
-<body class="text-center"
-	style="background: #76b852; /* fallback for old browsers */ background: -webkit-linear-gradient(right, #5258b8, #bfb3f9); background: -moz-linear-gradient(right, #5258b8, #bfb3f9); background: -o-linear-gradient(right, #5258b8, #bfb3f9); background: linear-gradient(to left, #5258b8, #bfb3f9); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
 
-	<nav class="navbar navbar-expand-lg  navbar navbar-dark bg-dark">
-	<a class="navbar-brand" href="#">USJT | Files Upload</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-		<div class="navbar-nav ">
-			<a class="nav-item nav-link active" href="/opcoes">Voltar</a> <a
-				class="nav-item nav-link active" href="/fazerLogin">Sair</a>
-
-
-
-		</div>
-	</div>
+<body>
+	<nav class="navbar navbar-expand-lg bg-light">
+		<a href="/" class="navbar-brand mx-auto"><img
+			src="/img/logo-mediacenter.png" alt="Logo Media Center"
+			style="width: 210px;"></a>
 	</nav>
 
-	</br>
-	</br>
-	<div>
-		<div
-			style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
-			<h4>Imagens</h4>
+	<!--nav do estagiario-->
+	<div class="bg-light">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="nav-link active" href="/sugestoes/dashboard" th:text="#{sugestoes}"></a>
+                <a class="nav-link" href="/materiais/upload" th:text="#{enviar}"></a>
+                <a class="nav-link" href="/conteudos/confeccao" th:text="#{confeccao}"></a>
+                <a class="nav-link" href="/conteudos/timeline" th:text="timeline"></a>
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons" style="vertical-align: middle;">language</i>
+                    </button>
+                    <div class="dropdown-menu text-uppercase" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" th:text="#{lang.eng}" href="?lang=en">Inglês</a>
+                        <a class="dropdown-item" th:text="#{lang.es}" href="?lang=es"></a>
+                        <a class="dropdown-item" th:text="#{lang.pt}" href="?lang=pt">Português</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
 
-			<!-- <img src="imagens/penguin.png" style="width: 200px;" w-auto
-				p-3" class="rounded float-left" alt="responsive image"> <img
-				src="imagens/penguin.png" style="width: 200px;" w-auto
-				p-3" class="rounded float-center" alt="alternate text"> <img
-				src="imagens/penguin.png" style="width: 200px;" w-auto
-				p-3" class="rounded float-right" alt="alternate text"> -->
-
-			<table class="table">
-
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col"></th>
-						<th scope="col">#</th>
-						<th scope="col">Nome</th>
-						<th scope="col">Autor</th>
-						<th scope="col">Data Registro</th>
-					</tr>
-				</thead>
-
-
-
-				<tbody>
-
-					<tr th:each="figura : ${figuras}">
-
-						<td class="align-middle">
-
-							<div class="card" style="width: 12rem; margin: 12px 0 20px 0">
-								<a th:href="@{${'http://localhost:3000/' + figura.url }}"
-									target="_blank" style=""><img class="card-img-top"
-									th:src="@{${'http://localhost:3000/' + figura.url }}"
-									alt="Card image cap"></a>
-
+	<form action="/conteudos/confeccao" method="post">
+		<!--card principal-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-12">
+					<div class="card text-center mt-5">
+						<div class="card-header" th:text="#{monte-conteudo}"></div>
+						<div class="card-body">
+							<div class="form-group">
+								<label class="label-upload" for="titulo" th:text="#{titulo}"></label> <input type="text"
+									name="titulo" id="titulo" class="form-control" required
+									autofocus>
 							</div>
-
-
-						</td>
-
-						<td th:text="${figura.id}" class="align-middle"></td>
-
-						<td th:text="${figura.nome}" class="align-middle"></td>
-
-						<td th:text="${figura.autor}" class="align-middle"></td>
-
-
-						<td
-							th:text="${#temporals.format(figura.dataRegistro, 'dd/MM/yyyy HH:mm')}"
-							class="align-middle"></td>
-					</tr>
-				</tbody>
-
-			</table>
-
-			<div class="col-md-2 text-center">
-
-				<form method="POST" action="/uploads/upload"
-					enctype="multipart/form-data">
-
-					<label class="btn btn-default" style="margin: 15px 0 15px 0">
-						Upload | Selecione arquivo<input type="file" hidden name="file"
-						multiple="">
-					</label> <br /> <input type="submit" value="Enviar"
-						class="btn btn-secondary" />
-
-				</form>
-
+							<div class="form-group">
+								<label class="label-upload" for="descricao" th:text="#{descricao}"></label> <input type="text"
+									name="descricao" id="descricao" class="form-control">
+							</div>
+							<div class="form-group">
+								<h6 th:text="#{acesso}"></h6>
+								<div class="radio">
+									<label class="label-upload" th:for="${tipo}" th:each="tipo : ${tipos}"> <input
+										type="radio" name="tipo" th:id="${tipo}" class="form-control"
+										th:value="${tipo}" th:text="#{${tipo}}"> &nbsp &nbsp
+										&nbsp
+									</label>
+								</div>
+							</div>
+							<textarea name="conteudo"></textarea>
+						</div>
+					</div>
+				</div>
 			</div>
-
-
-			<div th:if="${#lists.isEmpty(figuras)}">
-				<p style="margin-top: 40px; text-align: center">Lista vazia</p>
-			</div>
-
 		</div>
-	</div>
-	</br>
-	</br>
 
-	<div
-		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
-		<h4>Videos</h4>
-
-		<!-- 	<img src="imagens/penguin.gif" style="width: 200px;" w-auto
-			p-3" class="rounded float-left" alt="Responsive image"> <img
-			src="imagens/penguin.gif" style="width: 200px;" w-auto
-			p-3" class="rounded float-right" alt="Responsive image"> <img
-			src="imagens/penguin.gif" style="width: 200px;" w-auto
-			p-3" class="rounded float-center" alt="Responsive image">
-	</div> -->
-
-		<br> <br>
-		<tbody>
-
-			<tr th:each="video : ${videos}">
-
-				<td class="align-middle"><video width="100%" controls>
-					<source th:src="@{${'http://localhost:3000/' + video.url }}"
-						type="video/mp4"> Your browser does not support HTML5
-					video. </video></td>
-
-				<td th:text="${video.id}" class="align-middle"></td>
-
-				<td th:text="${video.nome}" class="align-middle"></td>
-
-				<td th:text="${video.producao}" class="align-middle"></td>
-
-
-				<td
-					th:text="${#temporals.format(video.dataRegistro, 'dd/MM/yyyy HH:mm')}"
-					class="align-middle"></td>
-			</tr>
-		</tbody>
-
-		<form method="POST" action="/uploads/upload"
-			enctype="multipart/form-data">
-
-			<label class="btn btn-default" style="margin: 15px 0 15px 0">
-				Upload | Selecione arquivo<input type="file" hidden name="file"
-				multiple="">
-			</label> <br /> <input type="submit" value="Enviar"
-				class="btn btn-secondary" />
-
-		</form>
-	</div>
-	</br>
-	</br>
-	<div
-		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
-		<h4>Textos</h4>
-
-		<table class="table">
-
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col"></th>
-					<th scope="col">#</th>
-					<th scope="col">Nome</th>
-					<th scope="col">Autor</th>
-					<th scope="col">Data Registro</th>
-					<th scope="col">Direito de uso</th>
-					<th scope="col">Resumo</th>
-
-				</tr>
-			</thead>
-
-
-
-			<tbody>
-
-				<tr th:each="texto : ${textos}">
-
-					<td><a th:href="@{${'http://localhost:3000/' + texto.url }}"
-						target="_blank"><img th:src="@{/pdf.png}" style="width: 60px" /></a>
-
-					</td>
-
-					<td th:text="${texto.id}" class="align-middle"></td>
-
-					<td th:text="${texto.nome}" class="align-middle"></td>
-
-					<td th:text="${texto.autor}" class="align-middle"></td>
-
-
-					<td
-						th:text="${#temporals.format(texto.dataRegistro, 'dd/MM/yyyy HH:mm')}"
-						class="align-middle"></td>
-
-					<td th:text="${texto.direitoDeUso}" class="align-middle"></td>
-
-					<td th:text="${texto.resumo}" class="align-middle"></td>
-
-				</tr>
-			</tbody>
-
-		</table>
-
-		<div th:if="${#lists.isEmpty(textos)}">
-			<p style="margin-top: 40px; text-align: center">Lista vazia</p>
+		<!--categorias-->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-4">
+					<div class="card mt-5">
+						<div class="card-header" th:text="#{imagem}"></div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4 col-lg-4 col-md-4"
+									th:each="imagem : ${imagens}">
+									<img th:src="${imagem.getSource()}" th:id="${imagem.id}" style="width: 100%" class="modal-img">
+								</div>
+							</div>
+							<button type="button" data-toggle="modal"
+								data-target="#image-modal" class="btn btn-primary bmd-btn-fab">
+								<i class="material-icons">add</i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-lg-4">
+					<div class="card mt-5">
+						<div class="card-header" th:text="#{video}"></div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-11 embed-responsive embed-responsive-16by9"
+									th:each="video : ${videos}">
+									<video class="embed-responsive-item" width="400" controls>
+										<source th:src="${video.getSource()}" type="video/mp4">
+									</video>
+								</div>
+							</div>
+							<button type="button" data-toggle="modal"
+								data-target="#video-modal" class="btn btn-primary bmd-btn-fab">
+								<i class="material-icons">add</i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-lg-4">
+					<div class="card mt-5">
+						<div class="card-header" th:text="#{audio}">Audio</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-4 col-lg-4 col-md-4"
+									th:each="audio : ${audios}">
+									<audio class="embed-responsive-item" controls>
+										<source th:src="${audio.getSource()}" type="audio/mpeg">
+									</audio>
+								</div>
+							</div>
+							<button type="button" data-toggle="modal"
+								data-target="#text-modal" class="btn btn-primary bmd-btn-fab">
+								<i class="material-icons">add</i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 
-	</div>
-	</br>
-	</br>
-	<div
-		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
-		<h4>Organiza��o do Conteudo (HTML)</h4>
-		<textarea name="editor1"></textarea>
-		<script>
-			CKEDITOR.replace('editor1');
-		</script>
-	</div>
-	</br>
-	</br>
-	<div
-		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
-		<h4>Titulo</h4>
-		<textarea rows="2" cols="50"></textarea>
-	</div>
-	<div
-		style="outline: 0; background: #f2f2f2; width: 100%; border: 0; margin: 0 0 15px; padding: 15px; box-sizing: border-box; font-size: 14px; box-shadow: inset 0 0, 0 0 1em black; border-radius: 5px">
-		<h4>Breve descrição</h4>
-		<textarea rows="10" cols="100"></textarea>
+		<!--Modals-->
+
+		<div class="modal fade" id="image-modal" tabindex="-1" role="dialog"
+			aria-labelledby="modal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Conteúdos
+							relacionados</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem1.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem1.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem1.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem2.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem2.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem2.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem3.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem3.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem3.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem4.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem4.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/imagem4.jpg" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--Modal dos vídeos-->
+		<div class="modal fade" id="video-modal" tabindex="-1" role="dialog"
+			aria-labelledby="modal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Conteúdos
+							relacionados</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item"
+										src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
+										allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--Modal dos textos-->
+		<div class="modal fade" id="text-modal" tabindex="-1" role="dialog"
+			aria-labelledby="modal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Conteúdos
+							relacionados</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+							<div class="col-sm-12 col-lg-4 col-md-4">
+								<img src="img/txt.png" alt="" style="width: 100%"
+									class="modal-img">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<button type="submit"
+						class="btn btn-send btn-raised btn-lg btn-danger">enviar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog"
+		aria-labelledby="modal" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Deseja enviar?</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">Você pode continuar editando seu
+					conteúdo.</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Enviar</button>
+					<button type="button" class="btn btn-primary">Continuar
+						editando</button>
+				</div>
+			</div>
+		</div>
 	</div>
 
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
 
-	<button class="btn btn-primary btn-lg" type="submit" value="acessar">Enviar</button>
+	<script type="text/javascript" src="../../js/froala_editor.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/align.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/char_counter.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/code_beautifier.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/code_view.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/colors.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/draggable.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/emoticons.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/entities.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/file.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/font_size.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/font_family.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/fullscreen.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/image.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/image_manager.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/line_breaker.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/inline_style.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/link.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/lists.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/paragraph_format.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/paragraph_style.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/quick_insert.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/quote.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/table.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/save.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/url.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/video.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/help.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/print.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/third_party/spell_checker.min.js"></script>
+	<script type="text/javascript"
+		src="../../js/plugins/special_characters.min.js"></script>
+	<script type="text/javascript" src="../../js/plugins/word_paste.min.js"></script>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"
-		crossorigin="anonymous"></script>
-
+		src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
 	<script>
-		CKEDITOR.replace('editor1');
+		$(document).ready(function() {
+			$('body').bootstrapMaterialDesign();
+		});
 	</script>
-
+	<script>
+		$(function() {
+			$('textarea').froalaEditor()
+		});
+	</script>
 </body>
+
 </html>

@@ -1,37 +1,52 @@
 package br.usjt.proj_int.service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import br.usjt.proj_int.model.bean.Material;
+import br.usjt.proj_int.model.beans.Material;
 import br.usjt.proj_int.repository.MaterialRepository;
 
 @Service
 public class MaterialService {
 
-	private final MaterialRepository repository;
-
-	@Autowired
-	public MaterialService(MaterialRepository materialRepository) {
-
-		this.repository = materialRepository;
+	@Autowired private MaterialRepository materialRepository;
+	
+	public Material store(MultipartFile file, Material material) {
+		String nome = file.getOriginalFilename();
+		if(file.isEmpty()) {
+			throw new RuntimeException("Não é possivel guardar um arquivo vazio");
+		}
+		try(InputStream inputStream = file.getInputStream()){
+			fileToMaterial(file, material, nome);
+			
+			material = materialRepository.save(material);
+			
+			Path location = Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + material.getTipo() + "-dir");
+			Files.copy(inputStream, location.resolve(material.getId() + '.' + material.getExtensao()), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			throw new RuntimeException("Falha ao guardar o arquivo");
+		}		
+		return material;
 	}
 
-	public void salvar(Material material) {
-
-		material.setDataRegistro(LocalDateTime.now());
-
-		repository.save(material);
+	private Material fileToMaterial(MultipartFile file, Material material, String nome) {
+		material.setNome(nome.substring(0, nome.lastIndexOf('.') - 1));
+		material.setTipo(file.getContentType().split("/")[0]);
+		material.setExtensao(nome.substring(nome.lastIndexOf('.') + 1));
+		return material;
 	}
 
-	public List<Material> listar() {
-
-		return (ArrayList<Material>) repository.findAll();
-
+	public List<Material> findByTipo(String tipo){ 
+		return materialRepository.findByTipo(tipo);
 	}
-
 }
