@@ -23,7 +23,7 @@ body {
 
 .icons {
     transform: scale(3);
-    padding: 25px;
+    padding: 15px;
 }
 
 .btn-raised {
@@ -32,7 +32,7 @@ body {
 }
 
 .btn-send:hover {
-    background-color: #b72d55 !important;
+    background-color: #209dc6 !important;
 }
 
 .modal-dialog {
@@ -44,7 +44,7 @@ body {
 }
 
 .modal-body {
-    height: 250px;
+    height: 150px;
     overflow-y: auto;
 }
 
