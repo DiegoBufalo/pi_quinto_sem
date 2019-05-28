@@ -51,7 +51,7 @@ public class Init implements CommandLineRunner {
 
 			List<Tag> tags = new ArrayList<>();
 			for (String nome : Arrays.asList("software", "statistics", "teaching", "technology", "tips", "tool",
-					"toread", "travel", "tutorial", "tv", "typography", "ubuntu", "video", "visualization", "web",
+					"toread", "travel", "tutorial", "tv", "ubuntu", "video", "visualization", "web",
 					"USJT", "Bolsa de Valores", "Dólar", "Bolsonaro", "PT")) {
 				Tag tag = new Tag().setNome(nome);
 				tagRepository.save(tag);
@@ -91,5 +91,4 @@ public class Init implements CommandLineRunner {
 			}
 		}
 	}
-
 }
