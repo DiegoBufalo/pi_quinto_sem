@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.usjt.proj_int.enums.TipoAcesso;
@@ -53,22 +54,26 @@ public class Conteudo {
 
 	@OneToMany(mappedBy = "conteudo")
 	@JsonIgnoreProperties("conteudo")
+	@JsonIgnore()
 	private List<Sugestao> sugestoes;
 	
 	@OneToMany(mappedBy = "conteudo")
 	@JsonIgnoreProperties("conteudo")
+	@JsonIgnore()
 	private List<Feedback> feedbacks;
 	
 	@ManyToMany
 	@JsonIgnoreProperties("conteudos")
+	@JsonIgnore()
 	private List<Material> materiais;
 	
 	@ManyToMany
 	@JsonIgnoreProperties("conteudos")
+	@JsonIgnore()
 	private List<Categoria> categorias;
 	
 	@ManyToMany
-	@JsonIgnoreProperties("conteudos")
+	@JsonIgnoreProperties("conteudos")	
 	private List<Tag> tags;
 
 	public String getId() {

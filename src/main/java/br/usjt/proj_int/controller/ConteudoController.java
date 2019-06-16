@@ -61,7 +61,7 @@ public class ConteudoController {
 		final int numeroConteudos = 15;
 
 		ModelAndView mav = new ModelAndView("timeline");
-
+					
 		List<Conteudo> conteudos;
 
 		if (principal != null) {
@@ -119,7 +119,43 @@ public class ConteudoController {
 	}
 
 	@GetMapping("/timeline/descricao")
-	public ModelAndView buscaDescricao(@Nullable Principal principal,
+	public List<Conteudo> buscaDescricao(@Nullable Principal principal,
+			@RequestParam(value = "descricao", required = true) String descricao) {
+		int numeroConteudos = 15;
+
+		ModelAndView mav = new ModelAndView("timeline");
+
+		List<Conteudo> conteudos;
+		List<Conteudo> conteudosPorDescricao = new ArrayList<Conteudo>();
+
+		if (principal != null) {
+			mav.addObject("usuario", usuarioService.findByUsuario(new Usuario().setUsuario(principal.getName())));
+			conteudos = conteudoService.findAll();
+		} else {
+			conteudos = conteudoService.findByTipo(TipoAcesso.PUBLICO);
+			conteudos.forEach(n -> {
+				if (n.getDescricao().contains(descricao)) {
+					conteudosPorDescricao.add(n);
+				}
+			});
+		}
+
+		numeroConteudos = conteudosPorDescricao.size() > numeroConteudos ? numeroConteudos
+				: conteudosPorDescricao.size();
+
+		mav.addObject("filtroDescricao", descricao);
+
+		mav.addObject("maisLidas",
+				conteudoService.maisLidas(new ArrayList<Conteudo>(conteudosPorDescricao)).subList(0, numeroConteudos));
+		mav.addObject("maisRecentes", conteudoService.maisRecentes(new ArrayList<Conteudo>(conteudosPorDescricao))
+				.subList(0, numeroConteudos));
+		System.out.println(mav.getModel().containsKey("maisVisualizadas"));
+
+		return conteudosPorDescricao;
+	}
+
+	@PostMapping("/timeline/descricao")
+	public ModelAndView searchByDescricao(@Nullable Principal principal,
 			@RequestParam(value = "descricao", required = true) String descricao) {
 		int numeroConteudos = 15;
 

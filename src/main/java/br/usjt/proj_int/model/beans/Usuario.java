@@ -30,6 +30,10 @@ public class Usuario {
 	@Column(unique = true)
 	private String usuario;
 	
+	private String nome;
+
+	private String decricao;
+
 	@NotEmpty
 	private String senha;
 	
@@ -45,6 +49,15 @@ public class Usuario {
 	@JsonIgnoreProperties("usuario")
 	private List<Feedback> feedbacks;
 
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public String getId() {
 		return id;
 	}

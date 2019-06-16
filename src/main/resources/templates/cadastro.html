@@ -13,11 +13,11 @@
     </head>
 
     <body>
-        <section class="login">
+        <section class="login"  style="margin-top:6em;">
             <div class="row">
                 <div class="col s12 m6 offset-m3 l6 offset-l3 xl4 offset-xl4">
                     <div class="card">
-                        <div class="card-action  white-text center" style ="background-color:#6600ff;border-radius:5px 5px 0px 0px">
+                        <div class="card-action  white-text center" style ="background-color:black;border-radius:5px 5px 0px 0px">
                             <h3 class="form-header">Registrar</h3>
                         </div>
 
@@ -30,6 +30,11 @@
                                 </div>
                                 
                                 <div class="form-field">
+                                	<label for="username">Name</label>
+                                    <input type="text" name="nome" id="nome" required>
+                                </div>                                
+                                
+                                <div class="form-field">
                                     <label for="password" th:text="#{senha}"></label>
                                     <input type="password" name="senha" id="senha" required>
                                 </div>
@@ -39,7 +44,8 @@
                                 <br>
 
                                 <div class="form-field">
-                                    <button type="submit" class="waves-effect waves-light btn-large lighten-2" style="background-color:#5c5cd6;" th:text="#{cadastrar}"></button>
+                                    <button type="submit" class="waves-effect waves-dark btn-large lighten-2" style="background-color:black;" th:text="#{cadastrar}"></button>
+                                     <a href="/" class="waves-effect waves-dark btn-large lighten-2" style="background-color:grey; float:right">Voltar</a>
                                 </div>
                             </form>
                         </div>
