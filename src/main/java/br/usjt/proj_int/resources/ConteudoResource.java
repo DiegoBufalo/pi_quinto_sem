@@ -67,7 +67,7 @@ public class ConteudoResource {
 		if (principal != null) {									
 			conteudos = conteudoService.findAll();
 			conteudos.forEach(n -> {
-				n.getCategorias().forEach( c -> {
+				n.getTags().forEach( c -> {
 					if (c.getNome().contains(descricao)) {
 						conteudosPorDescricao.add(n);
 					}					
@@ -76,7 +76,7 @@ public class ConteudoResource {
 		} else {
 			conteudos = conteudoService.findByTipo(TipoAcesso.PUBLICO);
 			conteudos.forEach(n -> {
-				n.getCategorias().forEach( c -> {
+				n.getTags().forEach( c -> {
 					if (c.getNome().contains(descricao)) {
 						conteudosPorDescricao.add(n);
 					}					

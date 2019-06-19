@@ -92,7 +92,7 @@
                 <div class="dropdown">
                     <button class="btn btn-outline-default dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
-                        <i style="vertical-align: middle;">Idioma</i>
+                        <i style="vertical-align: middle;" th:text="#{idioma}"></i>
                     </button>
                     <div class="dropdown-menu text-uppercase" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" th:text="#{lang.eng}" href="?lang=en"></a>
@@ -126,6 +126,22 @@
 							</div>
 							
 							<textarea name="conteudo"></textarea>
+							
+							<br>
+							<br>
+							<br>
+							
+							<div class="form-group">
+								<h6 th:text="#{acesso}"></h6>
+								<div class="radio">
+									<label class="label-upload" th:for="${tipo}" th:each="tipo : ${tipos}"> <input
+										type="radio" name="tipo" th:id="${tipo}" class="form-control"
+										th:value="${tipo}" th:text="#{${tipo}}"> &nbsp &nbsp
+										&nbsp
+									</label>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -146,10 +162,7 @@
 									<img th:src="${imagem.getSource()}" th:id="${imagem.id}" style="width: 100%" class="modal-img">
 								</div>
 							</div>
-							<button type="button" data-toggle="modal"
-								data-target="#image-modal" class="btn btn-primary bmd-btn-fab">
-								<i class="material-icons">add</i>
-							</button>
+						
 						</div>
 					</div>
 				</div>
@@ -164,11 +177,7 @@
 										<source th:src="${video.getSource()}" type="video/mp4">
 									</video>
 								</div>
-							</div>
-							<button type="button" data-toggle="modal"
-								data-target="#video-modal" class="btn btn-primary bmd-btn-fab">
-								<i class="material-icons">add</i>
-							</button>
+							</div>							
 						</div>
 					</div>
 				</div>
@@ -183,11 +192,7 @@
 										<source th:src="${audio.getSource()}" type="audio/mpeg">
 									</audio>
 								</div>
-							</div>
-							<button type="button" data-toggle="modal"
-								data-target="#text-modal" class="btn btn-primary bmd-btn-fab">
-								<i class="material-icons">add</i>
-							</button>
+							</div>							
 						</div>
 					</div>
 				</div>
@@ -473,6 +478,7 @@
 				<div class="col-sm-12">
 					<button type="submit"
 						class="btn btn-send btn-raised btn-lg btn-danger">enviar</button>
+												
 				</div>
 			</div>
 		</div>

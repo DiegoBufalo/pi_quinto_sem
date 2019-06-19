@@ -97,7 +97,7 @@ body {
                         <div class="dropdown">
                         <button class="btn btn-outline-default dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white">
-                            <i style="vertical-align: middle;">Idioma</i>
+                            <i style="vertical-align: middle;" th:text="#{idioma}"></i>
                         </button>
                         <div class="dropdown-menu text-uppercase" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" th:text="#{lang.eng}" href="?lang=en"></a>
@@ -109,8 +109,8 @@ body {
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="valorPesquisa">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="pesquisar">Search</button>       
+                    <input class="form-control mr-sm-2" type="text"  placeholder="Search by content" aria-label="Search" id="valorPesquisa">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="pesquisar" th:text="#{pesquisar}"></button>       
                 </form>
             </div>
         </nav>
@@ -128,8 +128,7 @@ body {
 
                     <div class="profile-user-title" th:if="${usuario}">
                         <div class="profile-user-name" th:id="${usuario.id}"></div>
-                        <div class="profile-user-job">
-                            <span class="badge badge-primary profissao-badge" th:text="#{${usuario.tipo}}"></span>
+                        <div class="profile-user-job">                            
                         </div>
                     </div>
                     <div class="profile-user-title" th:if="${usuario} == null">
@@ -159,14 +158,11 @@ body {
                         <br>
                         	                       
                         <div>
-                        	<div>
-                        	<p class="small">Categorias:</p>
-                            <th:block th:each="tag : ${conteudo.categorias}">												
-                                <span th:text="${tag.nome}" class="badge badge-primary"></span>
-                            </th:block>
+                        	<div>                        	
                             </div>
+                            <br></br>
                             <div>
-                            <p class="small">Tag's:</p>
+                            <p class="small">Tag's</p>
                             <th:block th:each="tag : ${conteudo.tags}">												
                                 <span th:text="${tag.nome}" class="badge badge-primary"></span>
                             </th:block>       
@@ -176,7 +172,7 @@ body {
                     <div class="card-footer" th:if="${usuario}">
                         <a href="#" th:id="${conteudo.id}"
                             class="atribuirConteudo enviar-feedback-positivo">
-                            <i class="material-icons icon" style="margin-right:5px;" >thumb_up</i> <th:block th:text="#{gostei}" ></th:block>
+                            <i class="material-icons icon" style="margin-right:7px;" >thumb_up</i> <th:block  th:text="#{gostei}" ></th:block>
                         </a>
                         <a href="#" th:id="${conteudo.id}"
 								class="atribuirConteudo enviar-feedback-negativo">
@@ -230,13 +226,15 @@ body {
     <div class="col-md-3">        
         <div class="card gedf-card">
             <div class="card-body">
-                <h5 class="card-title">Categorias</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Pesquisa por Tag's</h6>
-                <p class="card-text"> Clique em uma categoria pas pesquisar post's de acordo com a categoria.</p>
+                <h5 class="card-text">Tag's</h5>
+                <h6 class="card-subtitle mb-2 text-muted" th:text="#{pesquisa-tag}"></h6>
+                <p class="card-text" th:text="#{categoria-descricao}"></p>
                  <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="valorPesquisaCategoria">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="categoria">Search</button>       
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search By Tag" aria-label="Search" id="valorPesquisaCategoria">
+                    <button class="btn btn-outline-success my-2 my-sm-0"  type="submit" id="categoria" th:text="#{pesquisar}" ></button>
+                    <br></br> 
                 </form>
+                <br></br> 
                 <div id="categorias"></div>
             </div>
         </div>
@@ -385,7 +383,7 @@ body {
 				$.post(`/feedbacks/negativo?usuario=${usuario}&conteudo=${conteudo}`,function(data, status) {
 					console.log("Id do botão clicado : " + botao.id);
 					$(botao).children('.icon').css("color", "#353c86");
-					botaoContrario.children('.icon').css("color", "#6c757d")
+					botaoContrario.children('.icon').css("color", "#6c757d");
 				});
 			});
 			var usuario = $('.profile-user-name').get(0).id;
